@@ -1,26 +1,21 @@
-import { handleRegForm } from "./handlers/reg-form.mjs";
-// import { viewForms } from "./render/login-page.js";
+import { handleLoginForm,loginForm } from "./handlers/login-form.mjs";
+import { handleRegForm, regForm } from "./handlers/reg-form.mjs";
+import { renderProfile } from "./render/profile.mjs";
 
 
-// if (location.pathname === "/" || location.pathname === "/index.html") {
-//     viewForms();
-// }
-
-
-
-//register user
 document.addEventListener("DOMContentLoaded", function () {
 
 
-    if (location.pathname === "/register/index.html" || location.pathname === "/register/") {
+    if (regForm) {
         handleRegForm();
+    } else if (loginForm) {
+        handleLoginForm();
     }
 
-    if (location.pathname === "/" || location.pathname === "/index.html") {
-        viewForms();
-    }
+    if (window.location.pathname === "/profile/index.html" || window.location.pathname === "/profile/") {
+        renderProfile();
+    }   
 });
-
 
 //login user (automatically if registering)
 //logout user

@@ -1,8 +1,8 @@
-import { API_URL } from "../auth/constants.mjs";  
+import { REGISTER_URL } from "../auth/constants.mjs";  
 
-//send user regitration data to the API
+//send user registration data to the API
 export async function registerUser(profile) {
-    const response = await fetch(API_URL + "/auth/register", {
+    const response = await fetch(REGISTER_URL, {
         method: "POST",
         body: profile,
         headers: {
@@ -10,5 +10,6 @@ export async function registerUser(profile) {
         }
     });
     console.log(response);
+    return response.json();
     
 }
