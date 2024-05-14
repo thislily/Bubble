@@ -1,6 +1,9 @@
+import { fetchApiKey } from "./api/auth/authFetch.mjs";
+import { fetchPosts } from "./api/profile/posts.mjs";
+import { editProfileForm, handleEditProfileForm } from "./handlers/edit-profile-form.mjs";
 import { handleLoginForm,loginForm } from "./handlers/login-form.mjs";
 import { handleRegForm, regForm } from "./handlers/reg-form.mjs";
-import { renderProfile } from "./render/profile.mjs";
+import { displayProfile } from "./render/profile.mjs";
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -10,18 +13,23 @@ document.addEventListener("DOMContentLoaded", function () {
         handleRegForm();
     } else if (loginForm) {
         handleLoginForm();
+    } else if (editProfileForm){
+        handleEditProfileForm();
     }
 
-    if (window.location.pathname === "/profile/index.html" || window.location.pathname === "/profile/") {
-        renderProfile();
+    if (window.location.pathname === "/profile/index.html" || window.location.pathname === "/profile/" || window.location.pathname === "/profile/edit/index.html" || window.location.pathname === "/profile/edit/") {
+        displayProfile();
+        fetchApiKey();
     }   
+
+    
 });
 
+//register user
 //login user (automatically if registering)
 //logout user
 //view user profile
 //update user profile
-//delete user profile
 //create a post
 //view all posts
 //view a single post by post id

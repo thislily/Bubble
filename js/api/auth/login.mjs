@@ -1,14 +1,13 @@
 
 import { LOGIN_URL } from "../auth/constants.mjs";
+import { headers } from "../auth/constants.mjs";
 //send login data to the API
 
 export async function loginUser(profile) {
     const response = await fetch(LOGIN_URL, {
         method: "POST",
         body: JSON.stringify(profile),
-        headers: {
-            "Content-Type": "application/json"
-        }
+        headers: headers()
     });
 
     let userData = await response.json();
@@ -31,7 +30,7 @@ export async function loginUser(profile) {
         }
         localStorage.setItem("profile", JSON.stringify(user));
 
-        window.location.href = "/profile/index.html";
+        window.location.href = "/profile/index.html" + "?name=" + user.name;
     } else {
         alert("Invalid login details");
     }

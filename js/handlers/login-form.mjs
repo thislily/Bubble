@@ -1,4 +1,4 @@
-import { loginUser } from "../auth/login.mjs";
+import { loginUser } from "../api/auth/login.mjs";
 
 //login user
 export const loginForm = document.querySelector("#login-form");
