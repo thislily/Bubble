@@ -7,20 +7,19 @@ export function handleRegForm() {
   regForm.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    const formData = new FormData(regForm);
+    if (regForm.banner.value === "") {
+        regForm.banner.value = "https://wallpapercave.com/wp/wp12682974.jpg";
+        }
+    if (regForm.avatar.value === "") {
+        regForm.avatar.value = "https://cdn.vectorstock.com/i/500p/52/91/cute-happy-soap-bubble-vector-27845291.jpg";
+        }
+
     const profile = {
-      name: formData.get("name"),
-      email: formData.get("email"),
-      password: formData.get("password")
-    //   bio: formData.get("bio"),
-    //   avatar: {
-    //     url: formData.get("avatarURL"),
-    //     alt: formData.get("avatarAlt"),
-    //   },
-    //   banner: {
-    //     url: formData.get("bannerURL"),
-    //     alt: formData.get("bannerAlt"),
-    //   },
+      name: regForm.name.value,
+      email: regForm.email.value,
+      password: regForm.password.value,
+      avatar: regForm.avatar.value,
+      banner: regForm.banner.value,
     };
     console.log(profile);
     registerUser(profile);

@@ -7,32 +7,27 @@ export async function loginUser(profile) {
     const response = await fetch(LOGIN_URL, {
         method: "POST",
         body: JSON.stringify(profile),
-        headers: headers()
+        headers: {
+            "Content-Type": "application/json"
+        }
     });
 
     let userData = await response.json();
-    console.log(userData.data);
+    console.log(userData);
 
-    if (userData.data) {
-        localStorage.setItem("token", userData.data.accessToken);
+    if (userData) {
+        localStorage.setItem("token", userData.accessToken);
         const user = {
-            name: userData.data.name,
-            email: userData.data.email,
-            avatar: {
-                url: userData.data.avatar.url,
-                alt: userData.data.avatar.alt,
-            },
-            banner: {
-                url: userData.data.banner.url,
-                alt: userData.data.banner.alt,
-            },
-            bio: userData.data.bio,
+            name: userData.name,
+            email: userData.email,
+            avatar: userData.avatar,
+            banner: userData.banner
         }
         localStorage.setItem("profile", JSON.stringify(user));
 
         window.location.href = "/profile/index.html" + "?name=" + user.name;
     } else {
-        alert("Invalid login details");
+        console.error(userData);
     }
 
 }

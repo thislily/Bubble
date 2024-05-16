@@ -51,8 +51,9 @@
           id="banner-img"
         />
         <img
-          class="profile-img img-thumbnail rounded-circle p-0 border-black shadow-lg z-2 position-absolute bottom-0 start-0 m-3 bg-transparent"
+          class="profile-img img-thumbnail rounded-circle p-0 border-black shadow-lg z-2 position-absolute bottom-0 start-0 m-3 bg-transparent object-fit-cover"
           id="avatar-img"
+          style="aspect-ratio: 1;"
         />
       </div>
 
@@ -94,7 +95,7 @@
               <div class="form-floating mb-3">
                 <input
                   type="url"
-                  name="avatarURL"
+                  name="avatar"
                   class="form-control rounded-4"
                   id="edit-avatar"
                   placeholder="Profile image url"
@@ -106,19 +107,8 @@
               
               <div class="form-floating mb-3">
                 <input
-                  type="text"
-                  name="avatarAlt"
-                  class="form-control rounded-4"
-                  maxlength="80"
-                  id="edit-avatar-alt"
-                  placeholder="Profile image alt text"
-                />
-                <label for="edit-avatar-alt">Edit avatar alt text (max 80 characters)</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input
                   type="url"
-                  name="bannerURL"
+                  name="banner"
                   class="form-control rounded-4"
                   id="edit-banner"
                   placeholder="Banner image url"
@@ -127,31 +117,7 @@
                 />
                 <label for="edit-banner">Edit banner (url only)</label>
               </div>
-              <!-- avatar alt input -->
-              <div class="form-floating mb-3">
-                <input
-                  type="text"
-                  name="bannerAlt"
-                  class="form-control rounded-4"
-                  maxlength="80"
-                  id="edit-banner-alt"
-                  placeholder="Banner image alt text"
-                />
-                <label for="edit-banner-alt">Edit banner alt text (max 80 characters)</label>
-              </div>
-
-              <!-- bio input -->
-              <div class="form-floating mb-3">
-                <input
-                  type="text"
-                  name="bio"
-                  maxlength="160"
-                  class="form-control rounded-4"
-                  id="edit-bio"
-                  placeholder="Bio"
-                />
-                <label for="edit-bio">Edit bio (max 160 characters)</label>
-              </div>
+             
             </div>
             <button
               type="submit"

@@ -1,54 +1,80 @@
 import { fetchPosts } from "../api/profile/posts.mjs";
 import { fetchProfile } from "../api/profile/read.mjs";
+import { profilePostTemplate } from "./templates/postTemplate.mjs";
 
 //render profile page info using user name
 
 export function renderProfile(userName) {
   const bannerImg = document.querySelector("#banner-img");
   const avatarImg = document.querySelector("#avatar-img");
+  const avatarImgPost = document.querySelector("#avatar-img-post");
   const profileName = document.querySelector("#profile-name");
+  const profileNamePost = document.querySelector("#profile-name-post");
   const profileBio = document.querySelector("#profile-bio");
   const followersCount = document.querySelector("#followers-count");
   const followingCount = document.querySelector("#following-count");
   const postsCount = document.querySelector("#posts-count");
   const editProfileLink = document.querySelector("#edit-profile-link");
 
-    bannerImg.src = userName.data.banner.url;
-    bannerImg.alt = userName.data.banner.alt;
-    avatarImg.src = userName.data.avatar.url;
-    avatarImg.alt = userName.data.avatar.alt;
+  if (userName.banner === "") {
+    bannerImg.src = "https://wallpapercave.com/wp/wp12682974.jpg";
+  } else {
+    bannerImg.src = userName.banner;
+  }
 
-    followersCount.textContent = userName.data._count.followers;
-    followingCount.textContent = userName.data._count.following;
-    postsCount.textContent = userName.data._count.posts;
-    
-    const nameH1 = document.createElement("h1");
-    nameH1.textContent = "@" + userName.data.name;
-    profileName.appendChild(nameH1);
+  if (userName.avatar === "") {
+    avatarImg.src =
+      "https://cdn.vectorstock.com/i/500p/52/91/cute-happy-soap-bubble-vector-27845291.jpg";
+  } else {
+    avatarImg.src = userName.avatar;
+  }
 
-    const bioP = document.createElement("p");
-    if (userName.data.bio === null) {
-      userName.data.bio = "This user has not added a bio yet.";
+  if (avatarImgPost) {
+    if (avatarImgPost.src === "") {
+      avatarImgPost.src =
+        "https://cdn.vectorstock.com/i/500p/52/91/cute-happy-soap-bubble-vector-27845291.jpg";
     } else {
-      userName.data.bio = userName.data.bio;
+      avatarImgPost.src = userName.avatar;
     }
-    bioP.textContent = userName.data.bio;
-    profileBio.appendChild(bioP);
+  }
 
-    if (editProfileLink){
-      editProfileLink.href = "/profile/edit/index.html?name=" + userName.data.name;
-    }
+  followersCount.textContent = userName._count.followers;
+  followingCount.textContent = userName._count.following;
+  postsCount.textContent = userName._count.posts;
 
+  const nameH1 = document.createElement("h1");
+  nameH1.textContent = userName.name;
+  profileName.appendChild(nameH1);
 
-    fetchPosts(userName.data.name);
+  if (profileNamePost) {
+    profileNamePost.textContent = userName.name;
+  } 
 
+  if (editProfileLink) {
+    editProfileLink.href = "/profile/edit/index.html?name=" + userName.name;
+  }
+ 
 
-    
 }
 
-export async function displayProfile(userName) {
-    const profile = await fetchProfile();
-    renderProfile(profile);
-    
-    }
 
+export function renderProfilePosts(posts) {
+  const postsContainer = document.querySelector("#profile-post-feed");
+
+  //render each post with the post template from postTemplate.mjs
+  if(postsContainer){
+    posts.forEach((post) => {
+      postsContainer.appendChild(profilePostTemplate(post));
+    });
+  }
+
+}
+
+
+export async function displayProfile(userName) {
+  const profile = await fetchProfile();
+  renderProfile(profile);
+
+  const posts = await fetchPosts(userName);
+  renderProfilePosts(posts);
+}

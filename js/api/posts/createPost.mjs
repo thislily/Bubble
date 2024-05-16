@@ -1,4 +1,4 @@
-
+import { headers, POSTS_URL } from "../auth/constants.mjs";
 
 //create a new post
 
@@ -9,5 +9,8 @@ export async function createPost(post) {
         headers: headers(),
     });
     console.log(response);
-    return response.json();
+
+    const data = await response.json();
+    console.log(data);
+    return data
 }

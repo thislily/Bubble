@@ -1,5 +1,6 @@
-import { fetchApiKey } from "./api/auth/authFetch.mjs";
+// import { fetchApiKey } from "./api/auth/authFetch.mjs";
 import { fetchPosts } from "./api/profile/posts.mjs";
+import { handleCreatePostForm } from "./handlers/create-post.mjs";
 import { editProfileForm, handleEditProfileForm } from "./handlers/edit-profile-form.mjs";
 import { handleLoginForm,loginForm } from "./handlers/login-form.mjs";
 import { handleRegForm, regForm } from "./handlers/reg-form.mjs";
@@ -19,15 +20,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (window.location.pathname === "/profile/index.html" || window.location.pathname === "/profile/" || window.location.pathname === "/profile/edit/index.html" || window.location.pathname === "/profile/edit/") {
         displayProfile();
-        fetchApiKey();
+        handleCreatePostForm(); 
     }   
 
     
 });
 
-//register user
+//register user 
 //login user (automatically if registering)
-//logout user
 //view user profile
 //update user profile
 //create a post

@@ -1,4 +1,4 @@
-import { SOCIAL_URL, API_KEY, headers, PROFILE_URL } from "../auth/constants.mjs";
+import { SOCIAL_URL, headers, PROFILE_URL } from "../auth/constants.mjs";
 
 // Fetch profile data from the API
 export async function fetchProfile() {

@@ -4,7 +4,10 @@ import { PROFILE_URL, headers } from "../auth/constants.mjs";
 
 export async function fetchPosts(userName) {    
     try {
-        const getPosts = PROFILE_URL + "/" + userName + "/posts?_author=true&_reactions=true&_comments=true";
+        const userName = window.location.search.split("=")[1];
+        console.log(userName);
+
+        const getPosts = PROFILE_URL + "/" + userName + "/posts";
         const token = localStorage.getItem("token");
         if (!token) {
             throw new Error("Authorization token not found.");

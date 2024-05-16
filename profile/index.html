@@ -51,7 +51,8 @@
           id="banner-img"
         />
         <img
-          class="profile-img img-thumbnail rounded-circle p-0 border-black shadow-lg z-2 position-absolute bottom-0 start-0 m-3 bg-transparent"
+          class="profile-img img-thumbnail rounded-circle p-0 border-black shadow-lg z-2 position-absolute bottom-0 start-0 m-3 bg-transparent object-fit-cover"
+          style="aspect-ratio: 1"
           id="avatar-img"
         />
       </div>
@@ -61,7 +62,10 @@
           <div class="col p-3 pb-0 pb-md-3" id="profile-name"></div>
 
           <div class="col text-end p-3">
-            <a href="" id="edit-profile-link" class="text-black text-decoration-none"
+            <a
+              href=""
+              id="edit-profile-link"
+              class="text-black text-decoration-none"
               >edit profile <i class="bi bi-pencil-square"></i
             ></a>
           </div>
@@ -73,26 +77,33 @@
           <div
             class="col col-sm-4 d-flex justify-content-center gap-3 gap-lg-5 text-center p-3 pt-0 ps-sm-5"
           >
-            <a href="" class="text-decoration-none"><span id="followers-count"></span><br />followers</a>
-            <a href="" class="text-decoration-none"><span id="following-count"></span><br />following</a>
-            <a href="" class="text-decoration-none"><span id="posts-count"></span><br />posts</a>
+            <a href="" class="text-decoration-none"
+              ><span id="followers-count"></span><br />followers</a
+            >
+            <a href="" class="text-decoration-none"
+              ><span id="following-count"></span><br />following</a
+            >
+            <a href="" class="text-decoration-none"
+              ><span id="posts-count"></span><br />posts</a
+            >
           </div>
         </div>
       </div>
 
       <!-- POSTS -->
-      <div class="container pb-5" id="profile-post-feed">
+      <div class="container pb-5 mb-5" id="profile-post-feed">
         <!-- to post -->
         <div class="card rounded-5 bg-light m-auto p-0 border-0 mb-3">
           <div class="card-body p-0">
             <div class="row p-3">
               <div class="col col-auto pe-0 d-flex flex-row">
                 <img
-                  src="../images/profile-cameron.jpg"
+                  id="avatar-img-post"
+                  src=""
                   alt=""
                   class="profile-thumbnail img-thumbnail rounded-circle p-0"
                 />
-                <h3 class="card-title h4 pt-3 ps-2">Cameron Evergreen</h3>
+                <h3 id="profile-name-post" class="card-title h4 pt-3 ps-2"></h3>
               </div>
 
               <div class="col">
@@ -102,26 +113,57 @@
 
             <div class="row">
               <div class="col">
-                <form action="" class="p-3">
-                  <div class="form-floating">
-                    <textarea
-                      class="form-control"
-                      placeholder="Share your thoughts"
-                      id="newPost"
-                    ></textarea>
-                    <label for="newPost"
-                      ><i class="bi bi-pencil"></i> Share your
-                      thoughts...</label
-                    >
+                <form action="" id="create-post-form" >
+                  <div class="p-3">
+                    <div class="form-floating mb-3">
+                      <input
+                        type="text"
+                        name="title"
+                        class="form-control rounded-4"
+                        id="postTitle"
+                        placeholder="Title"
+                        required
+                      />
+                      <label for="postTitle">
+                        <i class="bi bi-pencil"> </i> Post title
+                      </label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                      <input
+                        type="text"
+                        name="body"
+                        class="form-control rounded-4"
+                        id="postBody"
+                        placeholder="Body"
+                        maxlength="280"
+                      />
+                      <label for="postBody">
+                        <i class="bi bi-chat"> </i> Share your thoughts
+                      </label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                      <input
+                        type="url"
+                        name="media"
+                        class="form-control rounded-4"
+                        id="postMedia"
+                        placeholder="Media"
+                      />
+                      <label for="postMedia">
+                        <i class="bi bi-camera"></i> Add a photo (url only)
+                      </label>
+                    </div>
                   </div>
-                </form>
-                <button
-                  class="btn-success bg-body-tertiary w-100 border-0 rounded-bottom-5 rounded-top-0 py-1"
+
+                  <button
+                  class="btn-success bg-body-tertiary w-100 border-0 rounded-bottom-5 rounded-top-0 py-1 display-6"
                 >
-                  <i class="bi bi-camera h3"></i>
-                  <br />
-                  Add a photo
+                  <p class="m-3">Create Post <i class="bi bi-send"></i></p>
                 </button>
+                </form>
+                
               </div>
             </div>
           </div>
