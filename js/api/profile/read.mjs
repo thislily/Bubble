@@ -1,9 +1,10 @@
 import { SOCIAL_URL, headers, PROFILE_URL } from "../auth/constants.mjs";
 
-// Fetch profile data from the API
+// fetch profile data from the API
 export async function fetchProfile() {
     try {
-        const userName = window.location.search.split("=")[1];
+        const queryParams = new URLSearchParams(window.location.search);
+        const userName = queryParams.get('name');
         console.log(userName);
 
         const getProfile = PROFILE_URL + "/" + userName;

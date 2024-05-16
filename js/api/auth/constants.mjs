@@ -5,8 +5,7 @@ export const  REGISTER_URL = `${API_URL}/social/auth/register` // Register URL
 export const POSTS_URL = `${SOCIAL_URL}/posts` // Posts URL
 export const PROFILE_URL = `${SOCIAL_URL}/profiles` // Profile URL
 
-// export const API_KEY = "8a4110e1-0098-4088-9756-6cdc51a9e7fe"; // API key
-
+// Function to get the headers
 export function headers() {
 	const token = localStorage.getItem("token");
 

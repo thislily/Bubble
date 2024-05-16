@@ -1,8 +1,9 @@
 import { loginUser } from "../api/auth/login.mjs";
 
-//login user
+
 export const loginForm = document.querySelector("#login-form");
 
+// handle login form submission
 export function handleLoginForm() {
   loginForm.addEventListener("submit", function (event) {
     event.preventDefault();

@@ -1,7 +1,6 @@
 import { headers, POSTS_URL } from "../auth/constants.mjs";
 
-//create a new post
-
+// create a new post with the post data
 export async function createPost(post) {
     const response = await fetch(POSTS_URL, {
         method: "POST",

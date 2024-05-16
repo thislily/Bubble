@@ -1,8 +1,8 @@
 //render a post
 import { timeAgo } from "./timeAgo.mjs";
 
-//function that returns a post template. The template includes the user's name, avatar, post image, post title, post body, post date, and approve/deny buttons.
-export function profilePostTemplate(post) {
+//function that returns a post template. The template includes the user's name, avatar, post image, post title, post body, post date.
+export function postTemplate(post) {
   const user = localStorage.getItem("profile");
   const profile = JSON.parse(user);
 
@@ -18,8 +18,20 @@ export function profilePostTemplate(post) {
     "card-w-image"
   );
 
-  const cardBody = document.createElement("div");
+  const cardBody = document.createElement("a");
+
+  if(window.location.pathname.includes("/post/")){
+    cardBody.href = "";
+  } else {
+      if (!post._author) {
+    cardBody.href = `./post/index.html?name=${profile.name}&id=${post.id}`;
+  } else if (post._author) {
+    cardBody.href = ``;
+  }
+  }
+
   cardBody.classList.add("card-body", "p-0");
+  cardBody.style.textDecoration = "none";
   card.appendChild(cardBody);
 
   const row = document.createElement("div");
@@ -32,33 +44,75 @@ export function profilePostTemplate(post) {
 
   const img = document.createElement("img");
 
-  if (profile.avatar === "") {
-    img.src =
-      "https://cdn.vectorstock.com/i/500p/52/91/cute-happy-soap-bubble-vector-27845291.jpg";
+  if (post._author) {
+    if (post._author.avatar === "") {
+      img.src =
+        "https://cdn.vectorstock.com/i/500p/52/91/cute-happy-soap-bubble-vector-27845291.jpg";
+    } else {
+      img.src = post._author.avatar;
+    }
+    img.alt = `${post._author.name}`;
   } else {
-    img.src = profile.avatar;
+    if (profile.avatar === "") {
+      img.src =
+        "https://cdn.vectorstock.com/i/500p/52/91/cute-happy-soap-bubble-vector-27845291.jpg";
+    } else {
+      img.src = profile.avatar;
+    }
+    img.alt = `${profile.name}`;
   }
-
-  img.alt = `${profile.name}`;
   img.classList.add(
     "profile-thumbnail",
     "img-thumbnail",
     "rounded-circle",
-    "p-0"
+    "p-0",
+    "object-fit-cover"
   );
+  img.style.aspectRatio = "1/1";
   col.appendChild(img);
 
   const h3 = document.createElement("h3");
   h3.classList.add("card-title", "h4", "pt-3", "ps-2");
-  h3.textContent = profile.name;
+  if (post._author) {
+    h3.textContent = post._author.name;
+  } else {
+    h3.textContent = profile.name;
+  }
   col.appendChild(h3);
 
   const col2 = document.createElement("div");
-  col2.classList.add("col");
+  col2.classList.add("col", "text-end");
   row.appendChild(col2);
 
   const button = document.createElement("button");
-  button.classList.add("btn", "visually-hidden", "p-3");
+  if (post._author) {
+    button.classList.add(
+      "btn",
+      "bg-success-subtle",
+      "btn-outline-success",
+      "text-dark",
+      "text-emphasis-success",
+      "ps-1",
+      "p-1",
+      "m-1",
+      "text-end"
+    );
+    button.innerHTML = `follow  <i class="bi bi-plus-circle"></i>`;
+  } else {
+    button.classList.add(
+      "btn",
+      "bg-info-subtle",
+      "btn-outline-info",
+      "text-dark",
+      "text-emphasis",
+      "ps-1",
+      "p-1",
+      "m-1",
+      "text-end"
+    );
+    button.innerHTML = `edit  <i class="bi bi-pencil-square"></i
+  >`;
+  }
   col2.appendChild(button);
 
   if (post.media !== "") {
@@ -87,7 +141,6 @@ export function profilePostTemplate(post) {
   p.textContent = post.body;
   col3.appendChild(p);
 
-
   const i = document.createElement("i");
   i.classList.add("text-dark", "text-end", "d-block", "pe-4", "pb-3");
   if (post.created === post.updated) {
@@ -101,43 +154,3 @@ export function profilePostTemplate(post) {
 
   return card;
 }
-
-  //   <div
-  //   class="card rounded-5 bg-light m-auto p-0 border-0 mb-3 card-w-image"
-  // >
-  //   <div class="card-body p-0">
-  //     <div class="row p-3">
-  //       <div class="col col-auto pe-0 d-flex flex-row">
-  //         <img
-  //           src="../images/profile-cameron.jpg"
-  //           alt=""
-  //           class="profile-thumbnail img-thumbnail rounded-circle p-0"
-  //         />
-  //         <h3 class="card-title h4 pt-3 ps-2">Cameron Evergreen</h3>
-  //       </div>
-
-  //       <div class="col">
-  //         <button class="btn visually-hidden p-3"></button>
-  //       </div>
-  //     </div>
-
-  //     <img
-  //       src="../images/post-1-cameron.jpg"
-  //       alt=""
-  //       class="card-image w-100 pb-3"
-  //     />
-
-  //     <div class="row">
-  //       <div class="col">
-  //         <p class="card-text px-4 pb-3">
-  //           Discovered a hidden spot deep in the forest where I could sit
-  //           and ponder life's mysteries undisturbed. Moments like these
-  //           remind me of the importance of introspection and
-  //           self-reflection. 💭🌳 #QuietContemplation #InnerJourney
-  //           <br />
-  //           <i class="text-dark">2 days ago</i>
-  //         </p>
-  //       </div>
-  //     </div>
-  //   </div>
-  // </div

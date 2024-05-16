@@ -1,10 +1,10 @@
 import { PROFILE_URL, headers } from "../auth/constants.mjs";
 
 //fetch user posts from the api using the user name
-
 export async function fetchPosts(userName) {    
     try {
-        const userName = window.location.search.split("=")[1];
+        const queryParams = new URLSearchParams(window.location.search);
+        const userName = queryParams.get('name');
         console.log(userName);
 
         const getPosts = PROFILE_URL + "/" + userName + "/posts";

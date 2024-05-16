@@ -1,8 +1,8 @@
 import { registerUser } from "../api/auth/register.mjs";
 
 export const regForm = document.querySelector("#register-form");
-//register user
 
+// handle registration form submission
 export function handleRegForm() {
   regForm.addEventListener("submit", function (event) {
     event.preventDefault();

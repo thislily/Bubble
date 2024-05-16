@@ -1,21 +1,22 @@
 import { fetchPosts } from "../api/profile/posts.mjs";
 import { fetchProfile } from "../api/profile/read.mjs";
-import { profilePostTemplate } from "./templates/postTemplate.mjs";
+import { displayPost } from "./post.mjs";
+import { postTemplate } from "./templates/postTemplate.mjs";
 
-//render profile page info using user name
 
+//render the user profile
 export function renderProfile(userName) {
   const bannerImg = document.querySelector("#banner-img");
   const avatarImg = document.querySelector("#avatar-img");
   const avatarImgPost = document.querySelector("#avatar-img-post");
   const profileName = document.querySelector("#profile-name");
   const profileNamePost = document.querySelector("#profile-name-post");
-  const profileBio = document.querySelector("#profile-bio");
   const followersCount = document.querySelector("#followers-count");
   const followingCount = document.querySelector("#following-count");
   const postsCount = document.querySelector("#posts-count");
   const editProfileLink = document.querySelector("#edit-profile-link");
 
+  //set the user images to the user's images or default images if the user has not set an image
   if (userName.banner === "") {
     bannerImg.src = "https://wallpapercave.com/wp/wp12682974.jpg";
   } else {
@@ -38,6 +39,7 @@ export function renderProfile(userName) {
     }
   }
 
+  
   followersCount.textContent = userName._count.followers;
   followingCount.textContent = userName._count.following;
   postsCount.textContent = userName._count.posts;
@@ -54,17 +56,16 @@ export function renderProfile(userName) {
     editProfileLink.href = "/profile/edit/index.html?name=" + userName.name;
   }
  
-
 }
 
-
+//render the user's posts to the profile page
 export function renderProfilePosts(posts) {
   const postsContainer = document.querySelector("#profile-post-feed");
 
   //render each post with the post template from postTemplate.mjs
   if(postsContainer){
     posts.forEach((post) => {
-      postsContainer.appendChild(profilePostTemplate(post));
+      postsContainer.appendChild(postTemplate(post));
     });
   }
 
@@ -74,7 +75,9 @@ export function renderProfilePosts(posts) {
 export async function displayProfile(userName) {
   const profile = await fetchProfile();
   renderProfile(profile);
+}
 
-  const posts = await fetchPosts(userName);
+export async function displayProfilePosts() {
+  const posts = await fetchPosts();
   renderProfilePosts(posts);
 }

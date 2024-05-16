@@ -1,6 +1,6 @@
 import { updatePost } from "../api/posts/index.mjs";
 
-//handle update post form
+//handle update post form submission
 export function handleUpdatePostForm(){
     const form = document.getElementById("update-post-form");
 

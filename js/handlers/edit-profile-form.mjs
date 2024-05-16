@@ -4,30 +4,29 @@ import { editProfile } from "../api/profile/update.mjs";
 
 export const editProfileForm = document.getElementById("edit-profile-form");
 
+// handle the edit profile form submission
 export function handleEditProfileForm() {
     editProfileForm.addEventListener("submit", (event) => {
         event.preventDefault();
 
-        // Retrieve current profile data from local storage
+        // get the current profile data from local storage
         const currentProfileStr = localStorage.getItem('profile');
         const currentProfile = currentProfileStr ? JSON.parse(currentProfileStr) : {};
 
-        // Initialize the profile object to be submitted
+        // create an object to store the updated profile data
         const profile = {};
 
-        // Check if the form's avatar value is empty
+        //prevent empty values from overwriting existing values
         if (editProfileForm.avatar.value) {
             profile.avatar = editProfileForm.avatar.value;
         } else {
-            // If empty, use existing value from local storage
             profile.avatar = currentProfile.avatar;
         }
 
-        // Check if the form's banner value is empty
+        //prevent empty values from overwriting existing values
         if (editProfileForm.banner.value) {
             profile.banner = editProfileForm.banner.value;
         } else {
-            // If empty, use existing value from local storage
             profile.banner = currentProfile.banner;
         }
 

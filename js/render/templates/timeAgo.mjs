@@ -1,5 +1,4 @@
 //function that returns the "time ago" from a date string, rounded to the nearest minute, hour, day, month, or year.
-
 export function timeAgo(dateString) {
     const date = new Date(dateString);
     const now = new Date();
@@ -7,7 +6,7 @@ export function timeAgo(dateString) {
     const minutes = Math.round(seconds / 60);
     const hours = Math.round(minutes / 60);
     const days = Math.round(hours / 24);
-    const months = Math.round(days / 30.44); // Average month length
+    const months = Math.round(days / 30.44); // average month length
     const years = Math.round(days / 365);
 
     //statements to return the time ago in the most appropriate unit of time

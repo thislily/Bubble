@@ -1,38 +1,46 @@
-// import { fetchApiKey } from "./api/auth/authFetch.mjs";
-import { fetchPosts } from "./api/profile/posts.mjs";
-import { handleCreatePostForm } from "./handlers/create-post.mjs";
+// Description: Main entry point for the application. This file is responsible for loading the necessary modules and setting up the event listeners for the application.
+import { handleCreatePostForm, createPostForm } from "./handlers/create-post.mjs";
 import { editProfileForm, handleEditProfileForm } from "./handlers/edit-profile-form.mjs";
 import { handleLoginForm,loginForm } from "./handlers/login-form.mjs";
 import { handleRegForm, regForm } from "./handlers/reg-form.mjs";
-import { displayProfile } from "./render/profile.mjs";
+import { displayPost, renderPost } from "./render/post.mjs";
+import { displayProfile, displayProfilePosts } from "./render/profile.mjs";
 
 
 document.addEventListener("DOMContentLoaded", function () {
-
-
+//check if the current page is the registration page, login page, edit profile page, or create post page
     if (regForm) {
         handleRegForm();
     } else if (loginForm) {
         handleLoginForm();
     } else if (editProfileForm){
         handleEditProfileForm();
+    } else if (createPostForm) {
+        handleCreatePostForm();
     }
 
-    if (window.location.pathname === "/profile/index.html" || window.location.pathname === "/profile/" || window.location.pathname === "/profile/edit/index.html" || window.location.pathname === "/profile/edit/") {
+    //check if the current page is the profile page or a post page
+    if (window.location.pathname.includes("/profile/")) {
         displayProfile();
-        handleCreatePostForm(); 
-    }   
+    }
 
-    
+    if (window.location.pathname === "/profile/index.html"){
+        displayProfilePosts();
+    }
+
+    if (window.location.pathname.includes("/post/")) {
+        displayPost();
+    }
+
 });
 
-//register user 
-//login user (automatically if registering)
-//view user profile
-//update user profile
-//create a post
+//register user *****
+//login user (automatically if registering) *****
+//view user profile *****
+//update user profile *****
+//create a post *****
 //view all posts
-//view a single post by post id
+//view a single post by post id **
 //update a post by post id
 //delete a post by post id
 //view all comments for a post by post id

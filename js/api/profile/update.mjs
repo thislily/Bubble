@@ -1,6 +1,6 @@
 import { PROFILE_URL, headers } from "../auth/constants.mjs";
-// update profile data
 
+// update profile data with the media data
 export async function editProfile(media) {
   const name = window.location.search.split("=")[1];
   const response = await fetch(PROFILE_URL + "/" + name + "/media", {
