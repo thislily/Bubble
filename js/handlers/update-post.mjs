@@ -1,22 +1,52 @@
-import { updatePost } from "../api/posts/index.mjs";
+import { updatePost } from "../api/posts/update.mjs";
 
 //handle update post form submission
-export function handleUpdatePostForm(){
-    const form = document.getElementById("update-post-form");
+export const updatePostForm = document.getElementById("update-post-form");
 
-    const url = new URL(location.href);
-    const id = url.searchParams.get("id");
+export function viewCurrentPostInfo(post)   {
+
+    if (!updatePostForm) {
+        return;
+    } else {
+        const postTitle = document.getElementById("postTitle");
+        const postBody = document.getElementById("postBody");
+        const postMedia = document.getElementById("postMedia");
+
+        postTitle.value = post.title;
+        postBody.value = post.body;
+        postMedia.value = post.media;
+    }
     
-    if(form){
-        form.addEventListener("submit", (event) => {
-            event.preventDefault();
-            const form = event.target;
-            const formData = new FormData(form);
-            const post = Object.fromEntries(formData.entries());
-            post.id = id;
-            
-            //send to API
-            updatePost(postId, post);
-        });
-    };
+    //inputs of the form are set to the current post values
+
+    }
+
+
+export function handleUpdatePostForm() {
+  if (!updatePostForm) {
+    return;}
+
+    const queryParams = new URLSearchParams(window.location.search);
+    const postId = queryParams.get('id');
+    const profileName = queryParams.get('name');
+
+    updatePostForm.addEventListener("submit",async (event) => {
+      event.preventDefault();
+
+      const post = {
+        title: updatePostForm.title.value,
+        body: updatePostForm.body.value,
+        media: updatePostForm.media.value,
+      };
+      
+      console.log(post);
+
+    // send to API and wait for the operation to complete
+    
+      await updatePost(post);
+      window.location = `/profile/post/index.html?name=${profileName}&id=${postId}` ;  // go back to post page
+
+      
+    });
 }
+

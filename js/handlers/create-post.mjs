@@ -19,16 +19,13 @@ export function handleCreatePostForm() {
       
       console.log(post);
 
-    // Send to API and wait for the operation to complete
+    // send to API and wait for the operation to complete
     try {
       await createPost(post);
-      window.location.reload();  // Reload the page to show the new post
+      window.location.reload();  // reload the page to show the new post
   } catch (error) {
       console.error("Failed to create post:", error);
   }
       
     });
-
-    
-  
 }
