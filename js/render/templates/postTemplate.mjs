@@ -6,6 +6,7 @@ import { timeAgo } from "./timeAgo.mjs";
 export function postTemplate(post) {
   const user = localStorage.getItem("profile");
   const profile = JSON.parse(user);
+  const author = post.author;
 
   const card = document.createElement("div");
   card.id = post.id;
@@ -20,16 +21,17 @@ export function postTemplate(post) {
     "card-w-image"
   );
 
+
+//the card body is a link to the post page
   const cardBody = document.createElement("a");
 
-  //if the post is the user's own post, the cardBody href is set to the edit post page
   if (window.location.pathname.includes("/post/")) {
     cardBody.href = "";
   } else {
-    if (!post._author) {
-      cardBody.href = `./post/index.html?name=${profile.name}&id=${post.id}`;
-    } else if (post._author) {
-      cardBody.href = ``;
+    if (!author) {
+      cardBody.href = `/profile/post/index.html?name=${profile.name}&id=${post.id}`;
+    } else if (author) {
+      cardBody.href = `/profile/post/index.html?name=${author.name}&id=${post.id}`;
     }
   }
   cardBody.classList.add("card-body", "p-0");
@@ -40,20 +42,26 @@ export function postTemplate(post) {
   row.classList.add("row", "p-3");
   cardBody.appendChild(row);
 
-  const col = document.createElement("div");
-  col.classList.add("col", "col-auto", "pe-0", "d-flex", "flex-row");
+  //the name & avatar are links to the user's profile page
+  const col = document.createElement("a");
+  col.classList.add("col", "col-auto", "pe-0", "d-flex", "text-decoration-none", "text-black", "flex-row");
+  if (author) {
+    col.href = `/profile/index.html?name=${author.name}`;
+  } else {
+    col.href = `/profile/index.html?name=${profile.name}`;
+  }
   row.appendChild(col);
 
   //if the post is the user's own post, the avatar is set to the user's avatar or a default avatar if the user has not set an avatar, else the avatar is set to the post author's avatar or a default avatar if the post author has not set an avatar
   const img = document.createElement("img");
-  if (post._author) {
-    if (post._author.avatar === "") {
+  if (author) {
+    if (author.avatar === null) {
       img.src =
         "https://cdn.vectorstock.com/i/500p/52/91/cute-happy-soap-bubble-vector-27845291.jpg";
     } else {
-      img.src = post._author.avatar;
+      img.src = author.avatar;
     }
-    img.alt = `${post._author.name}`;
+    img.alt = `${author.name}`;
   } else {
     if (profile.avatar === "") {
       img.src =
@@ -76,8 +84,8 @@ export function postTemplate(post) {
   //if the post is the user's own post, the name is set to the user's name, else the name is set to the post author's name
   const h3 = document.createElement("h3");
   h3.classList.add("card-title", "h4", "pt-3", "ps-2");
-  if (post._author) {
-    h3.textContent = post._author.name;
+  if (author) {
+    h3.textContent = author.name;
   } else {
     h3.textContent = profile.name;
   }
@@ -90,7 +98,7 @@ export function postTemplate(post) {
   //if the post is the user's own post, the button is set to edit, else the button is set to follow
   const editButton = document.createElement("a");
   const followButton = document.createElement("button");
-  if (post._author) {
+  if (author && author.name !== profile.name) {
     followButton.classList.add(
       "btn",
       "bg-success-subtle",
@@ -124,7 +132,7 @@ export function postTemplate(post) {
   }
 
   //if the post has a media, the media is set to the post media
-  if (post.media !== "") {
+  if (post.media !== null && post.media !== "") {
     const img2 = document.createElement("img");
     img2.src = post.media;
     img2.alt = `${post.title}`;

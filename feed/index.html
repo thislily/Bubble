@@ -21,8 +21,9 @@
       rel="stylesheet"
       href="../node_modules/bootstrap-icons/font/bootstrap-icons.css"
     />
+    <script type="module" src="../js/app.mjs"></script>
 
-    <title>Profile | Bubble</title>
+    <title>Feed | Bubble</title>
   </head>
   <body class="bg-secondary">
     <!-- HEADER -->
@@ -45,7 +46,7 @@
     <main>
       <!-- FEED -->
 
-      <div class="container pb-5 mb-5 feed">
+      <div class="container pb-5 mb-5 feed" id="feed">
 
       <!-- sort feed -->
       <div
@@ -64,11 +65,12 @@
             <div class="row p-3">
               <div class="col col-auto pe-0 d-flex flex-row">
                 <img
-                  src="../images/profile-cameron.jpg"
+                  id="avatar-img-post"
+                  src=""
                   alt=""
-                  class="profile-thumbnail img-thumbnail rounded-circle p-0"
+                  class="profile-thumbnail img-thumbnail rounded-circle p-0 object-fit-cover"
                 />
-                <h3 class="card-title h4 pt-3 ps-2">Cameron Evergreen</h3>
+                <h3 id="profile-name-post" class="card-title h4 pt-3 ps-2"></h3>
               </div>
 
               <div class="col">
@@ -78,33 +80,64 @@
 
             <div class="row">
               <div class="col">
-                <form action="" class="p-3">
-                  <div class="form-floating">
-                    <textarea
-                      class="form-control"
-                      placeholder="Share your thoughts"
-                      id="newPost"
-                    ></textarea>
-                    <label for="newPost"
-                      ><i class="bi bi-pencil"></i> Share your
-                      thoughts...</label
-                    >
+                <form action="" id="create-post-form" >
+                  <div class="p-3">
+                    <div class="form-floating mb-3">
+                      <input
+                        type="text"
+                        name="title"
+                        class="form-control rounded-4"
+                        id="postTitle"
+                        placeholder="Title"
+                        required
+                      />
+                      <label for="postTitle">
+                        <i class="bi bi-pencil"> </i> Post title
+                      </label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                      <input
+                        type="text"
+                        name="body"
+                        class="form-control rounded-4"
+                        id="postBody"
+                        placeholder="Body"
+                        maxlength="280"
+                      />
+                      <label for="postBody">
+                        <i class="bi bi-chat"> </i> Share your thoughts
+                      </label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                      <input
+                        type="url"
+                        name="media"
+                        class="form-control rounded-4"
+                        id="postMedia"
+                        placeholder="Media"
+                      />
+                      <label for="postMedia">
+                        <i class="bi bi-camera"></i> Add a photo (url only)
+                      </label>
+                    </div>
                   </div>
-                </form>
-                <button
-                  class="btn-success bg-body-tertiary w-100 border-0 rounded-bottom-5 rounded-top-0 py-1"
+
+                  <button
+                  class="btn-success bg-success  w-100 border-0 rounded-bottom-5 rounded-top-0 py-1 display-6"
                 >
-                  <i class="bi bi-camera h3"></i>
-                  <br />
-                  Add a photo
+                  <p class="m-3">Create Post <i class="bi bi-send"></i></p>
                 </button>
+                </form>
+                
               </div>
             </div>
           </div>
         </div>
 
         <!-- post feed -->
-        <div class="card rounded-5 bg-light m-auto p-0 border-0 mb-3">
+        <!-- <div class="card rounded-5 bg-light m-auto p-0 border-0 mb-3">
           <div class="card-body p-0">
             <div class="row p-3">
               <div class="col col-auto pe-0 d-flex flex-row">
@@ -600,7 +633,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
 
       <ul
@@ -608,7 +641,7 @@
         style="max-width: 400px"
       >
         <li class="nav-item">
-          <a class="nav-link" href="../profile/index.html"
+          <a class="nav-link" href="" id="profile-link"
             ><i class="bi bi-person-circle text-black h3"></i
           ></a>
         </li>
@@ -618,7 +651,7 @@
           ></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="#"
+          <a class="nav-link" aria-current="page" href="" id="feed-link"
             ><i class="bi bi-house-heart-fill text-black h3"></i
           ></a>
         </li>

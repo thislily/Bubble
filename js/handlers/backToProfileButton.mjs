@@ -1,16 +1,15 @@
- // add a back to profile link
-export function backToProfileButton(post) {   
-    const profilePostById = document.querySelector("#profile-post-by-id");
-    const backToProfile = document.querySelector("#back-to-profile");
-    let profile = localStorage.getItem("profile");
-    profile = JSON.parse(profile);
-    
-   if (backToProfile) {
-    if (post && post._author) {
-        backToProfile.href = `/profile/index.html?name=${post._author.name}`;
-      } else {
-        backToProfile.href = `/profile/index.html?name=${profile.name}`;
-      }
-   }
+// add a back to profile link
+export function backToProfileButton(post) {
+  const queryParams = new URLSearchParams(window.location.search);
+  const name = queryParams.get("name");
+  const profile = localStorage.getItem("profile");
+  const loggedInUser = JSON.parse(profile);
 
-    }
+  const backToProfile = document.querySelector("#back-to-profile");
+
+  if (name !== loggedInUser.name) {
+    backToProfile.innerHTML = `<i class="bi bi-arrow-left"></i>  View Profile`;
+  }
+
+  backToProfile.href = `/profile/index.html?name=${name}`;
+}

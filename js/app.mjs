@@ -7,6 +7,8 @@ import { handleRegForm, regForm } from "./handlers/reg-form.mjs";
 import { displayPost, renderPost } from "./render/post.mjs";
 import { displayProfile, displayProfilePosts } from "./render/profile.mjs";
 import { handleRemovePostButton } from "./handlers/removePostButton.mjs";
+import { displayFeed } from "./render/feed.mjs";
+import { setNavLinks } from "./handlers/setNavLinks.mjs";
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -37,7 +39,15 @@ document.addEventListener("DOMContentLoaded", function () {
         handleRemovePostButton();
     }
 
+    if (window.location.pathname === "/feed/index.html") {
+        console.log("displaying feed");
+        displayFeed();
+    }
+
+    setNavLinks();
+
 });
+
 
 // ********************* register user 
 // ********************* login user (automatically if registering) 

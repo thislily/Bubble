@@ -6,11 +6,12 @@ export async function fetchPosts(userName) {
         const queryParams = new URLSearchParams(window.location.search);
         const userName = queryParams.get('name');
 
-        const getPosts = PROFILE_URL + "/" + userName + "/posts";
+        const getPosts = PROFILE_URL + "/" + userName + "/posts?_author=true&_reactions=true&_comments=true";
         const token = localStorage.getItem("token");
         if (!token) {
             throw new Error("Authorization token not found.");
         }
+
         const response = await fetch(getPosts, {
             method: "GET",
             headers: headers()
