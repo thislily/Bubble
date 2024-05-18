@@ -8,9 +8,7 @@ export async function editProfile(media) {
     body: JSON.stringify(media),
     headers: headers(),
   });
-  console.log(response);
   const userData = response.JSON;
-  console.log(userData);
 
   window.location.href = "/profile/index.html" + "?name=" + name;
 }

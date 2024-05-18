@@ -38,11 +38,8 @@ export function handleUpdatePostForm() {
         body: updatePostForm.body.value,
         media: updatePostForm.media.value,
       };
-      
-      console.log(post);
 
     // send to API and wait for the operation to complete
-    
       await updatePost(post);
       window.location = `/profile/post/index.html?name=${profileName}&id=${postId}` ;  // go back to post page
 

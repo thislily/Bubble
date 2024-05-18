@@ -5,7 +5,6 @@ export async function fetchProfile() {
     try {
         const queryParams = new URLSearchParams(window.location.search);
         const userName = queryParams.get('name');
-        console.log(userName);
 
         const getProfile = PROFILE_URL + "/" + userName;
 
@@ -26,10 +25,8 @@ export async function fetchProfile() {
         }
 
         const profileData = await response.json();
-        console.log(profileData);
         return profileData;
     } catch (error) {
-        console.error("Error fetching profile:", error.message);
-        throw error;
+        throw new Error("Error fetching profile: " + error.message);
     }
 }

@@ -21,7 +21,6 @@ export async function fetchPostById() {
     }
 
     const postData = await response.json();
-    console.log(postData);
     return postData;
 
 }

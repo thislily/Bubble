@@ -6,6 +6,7 @@ import { handleLoginForm,loginForm } from "./handlers/login-form.mjs";
 import { handleRegForm, regForm } from "./handlers/reg-form.mjs";
 import { displayPost, renderPost } from "./render/post.mjs";
 import { displayProfile, displayProfilePosts } from "./render/profile.mjs";
+import { handleRemovePostButton } from "./handlers/removePostButton.mjs";
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -33,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (window.location.pathname.includes("/post/")) {
         displayPost();
+        handleRemovePostButton();
     }
 
 });

@@ -10,17 +10,14 @@ export async function registerUser(profile) {
             "Content-Type": "application/json"
         }
     });
-    console.log(response);
     
     let userData = await response.json();
-
-    console.log(userData);
     
     // if the user is registered, log them in
     if (userData) {
         loginUser(profile);
     } else {
-        console.error(userData);
+        throw new Error("Failed to register user: " + response.statusText); 
     }
     
 }

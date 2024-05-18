@@ -16,15 +16,13 @@ export function handleCreatePostForm() {
         body: createPostForm.body.value,
         media: createPostForm.media.value,
       };
-      
-      console.log(post);
 
     // send to API and wait for the operation to complete
     try {
       await createPost(post);
       window.location.reload();  // reload the page to show the new post
   } catch (error) {
-      console.error("Failed to create post:", error);
+      throw new Error(error.message);
   }
       
     });

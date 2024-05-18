@@ -21,7 +21,7 @@ export function handleRegForm() {
       avatar: regForm.avatar.value,
       banner: regForm.banner.value,
     };
-    console.log(profile);
+
     registerUser(profile);
   });
 }

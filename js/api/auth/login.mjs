@@ -13,7 +13,6 @@ export async function loginUser(profile) {
     });
 
     let userData = await response.json();
-    console.log(userData);
 
     //if the user is logged in, save the token and profile data
     if (userData) {

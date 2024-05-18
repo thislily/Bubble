@@ -13,7 +13,6 @@ export function handleLoginForm() {
       password: loginForm.password.value,
     };
 
-    console.log(profile);
     loginUser(profile);
   });
 }

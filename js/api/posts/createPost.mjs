@@ -7,9 +7,7 @@ export async function createPost(post) {
         body: JSON.stringify(post),
         headers: headers(),
     });
-    console.log(response);
 
     const data = await response.json();
-    console.log(data);
     return data
 }

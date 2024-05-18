@@ -159,7 +159,7 @@ export function postTemplate(post) {
   } else {
     i.textContent = `posted: ${timeAgo(
       post.created
-    )},  updated: ${timeAgo(post.updated)}`;
+    )},   updated: ${timeAgo(post.updated)}`;
   }
   col3.appendChild(i);
 

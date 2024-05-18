@@ -1,33 +1,17 @@
 import { postTemplate } from "./templates/postTemplate.mjs";
 import { fetchPostById } from "../api/posts/read.mjs";
 import { viewCurrentPostInfo } from "../handlers/update-post.mjs";
+import { backToProfileButton } from "../handlers/backToProfileButton.mjs";
+import { handleRemovePostButton } from "../handlers/removePostButton.mjs";
 
 // render a post by ID
 export function renderPost(post) {
   const profilePostById = document.querySelector("#profile-post-by-id");
-  const backToProfile = document.querySelector("#back-to-profile");
-
-  let profile = localStorage.getItem("profile");
-  profile = JSON.parse(profile);
-
   let postElement = postTemplate(post); // ensure postTemplate correctly handles the post data
 
   // render the post to the profilePostById element
-  if (profilePostById) {
-    profilePostById.innerHTML = ""; // clear previous contents
+  if (profilePostById) { // clear previous contents
     profilePostById.appendChild(postElement);
-    console.log("Post rendered:", postElement);
-
-    // add a back to profile link
-    backToProfile.classList.add("btn", "btn-primary", "m-auto", "mb-3", "mt-3", "rounded-5",);
-    if (post._author) {
-      backToProfile.href = `/profile/index.html?name=${post._author.name}`;
-    } else {
-      backToProfile.href = `/profile/index.html?name=${profile.name}`;
-    }
-    backToProfile.innerHTML = `<i class="bi bi-arrow-left"></i>  Back to Profile`;
-
-    profilePostById.prepend(backToProfile);
   }
 }
 
@@ -38,11 +22,12 @@ export async function displayPost() {
     if (post) {
       renderPost(post); // render the fetched post
       viewCurrentPostInfo(post); // view the current post info
-      console.log("Post data:", post);
+      handleRemovePostButton(post); // add a remove post button
+      backToProfileButton(post); // add a back to profile button
     } else {
-      console.log("No post data returned");
+      throw new Error("Failed to fetch post.");
     }
   } catch (error) {
-    console.error("Failed to fetch or render post:", error);
+    throw new Error(error.message);
   }
 }
