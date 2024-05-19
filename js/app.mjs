@@ -17,24 +17,6 @@ import { displayFollowList } from "./render/followList.mjs";
 
 
 document.addEventListener("DOMContentLoaded", function () {
-//check if the current page is the registration page, login page, edit profile page, or create post page
-    if (regForm) {
-        handleRegForm();
-    } else if (loginForm) {
-        handleLoginForm();
-    } else if (editProfileForm){
-        handleEditProfileForm();
-    } else if (createPostForm) {
-        handleCreatePostForm();
-    } else if (updatePostForm) {
-        handleUpdatePostForm();
-    } else if (filterPosts) {
-        handleFilterPostsSelector();
-    } else if (searchPostsInput) {
-        setSearchInput();
-        searchPosts();
-    }
-
     //check if the current page is the profile page or a post page
     if (window.location.pathname.includes("/profile/")) {
         displayProfile();
@@ -57,6 +39,24 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (window.location.pathname.includes("/followers/") || window.location.pathname.includes("/following/")) {
         displayFollowList();
+    }
+
+    //check if the current page is the registration page, login page, edit profile page, or create post page
+    if (regForm) {
+        handleRegForm();
+    } else if (loginForm) {
+        handleLoginForm();
+    } else if (editProfileForm){
+        handleEditProfileForm();
+    } else if (createPostForm) {
+        handleCreatePostForm();
+    } else if (updatePostForm) {
+        handleUpdatePostForm();
+    } else if (filterPosts) {
+        handleFilterPostsSelector();
+    } else if (searchPostsInput) {
+        setSearchInput();
+        searchPosts();
     }
 
     setNavLinks();

@@ -1,5 +1,6 @@
 import { fetchPosts } from "../api/profile/posts.mjs";
 import { fetchProfile } from "../api/profile/read.mjs";
+import { handleReactionButton } from "../handlers/reactions.mjs";
 import { displayPost } from "./post.mjs";
 import { postTemplate } from "./templates/postTemplate.mjs";
 
@@ -95,5 +96,5 @@ export async function displayProfile(userName) {
 export async function displayProfilePosts() {
   const posts = await fetchPosts();
   renderProfilePosts(posts);
-  console.log(posts);
+  handleReactionButton();
 }

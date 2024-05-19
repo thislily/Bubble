@@ -1,8 +1,10 @@
 //template for users name card to be displayed when viewing followers or following list
 
 export function nameCardTemplate (user){
-    const card = document.createElement("div");
-    card.classList.add("card", "rounded-5", "bg-light", "m-auto", "p-0", "border-0", "mb-3", "card-w-image");
+    const card = document.createElement("a");
+    card.classList.add("card", "rounded-5", "bg-light", "m-auto", "p-0", "border-0", "mb-3", "card-w-image", "text-decoration-none", "text-black");
+    card.style.cursor = "pointer";
+    card.href = `/profile/index.html?name=${user.name}`;
 
     const cardBody = document.createElement("div");
     cardBody.classList.add("card-body", "p-0");
