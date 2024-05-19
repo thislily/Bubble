@@ -23,24 +23,31 @@ export function postTemplate(post) {
 
 
 //the card body is a link to the post page
-  const cardBody = document.createElement("a");
+  const cardBody = document.createElement("div");
+  const cardBodyLink = document.createElement("a");
+  cardBodyLink.classList.add("text-decoration-none", "text-black" );
+  cardBodyLink.style.cursor = "pointer";
+
+
 
   if (window.location.pathname.includes("/post/")) {
-    cardBody.href = "";
+    cardBodyLink.href = "";
   } else {
     if (!author) {
-      cardBody.href = `/profile/post/index.html?name=${profile.name}&id=${post.id}`;
+      cardBodyLink.href = `/profile/post/index.html?name=${profile.name}&id=${post.id}`;
     } else if (author) {
-      cardBody.href = `/profile/post/index.html?name=${author.name}&id=${post.id}`;
+      cardBodyLink.href = `/profile/post/index.html?name=${author.name}&id=${post.id}`;
     }
   }
   cardBody.classList.add("card-body", "p-0");
   cardBody.style.textDecoration = "none";
   card.appendChild(cardBody);
+  cardBody.appendChild(cardBodyLink);
 
   const row = document.createElement("div");
   row.classList.add("row", "p-3");
-  cardBody.appendChild(row);
+  cardBodyLink.appendChild(row);
+
 
   //the name & avatar are links to the user's profile page
   const col = document.createElement("a");
@@ -137,12 +144,12 @@ export function postTemplate(post) {
     img2.src = post.media;
     img2.alt = `${post.title}`;
     img2.classList.add("card-image", "w-100", "pb-3");
-    cardBody.appendChild(img2);
+    cardBodyLink.appendChild(img2);
   }
 
   const row2 = document.createElement("div");
   row2.classList.add("row");
-  cardBody.appendChild(row2);
+  cardBodyLink.appendChild(row2);
 
   const col3 = document.createElement("div");
   col3.classList.add("col");
@@ -161,7 +168,7 @@ export function postTemplate(post) {
 
   const row3 = document.createElement("div");
   row3.classList.add("row", "px-3");
-  cardBody.appendChild(row3);
+  cardBodyLink.appendChild(row3);
 
 
 
@@ -180,22 +187,73 @@ export function postTemplate(post) {
   const reactions = document.createElement("div");
   reactions.classList.add("col", "d-flex", "justify-content-end", "align-items-center", "pe-4", "pb-3");
   row3.appendChild(reactions);
-  const likeButton = document.createElement("button");
-  likeButton.classList.add("btn", "btn-light", "border-0");
-  likeButton.style.cursor = "pointer";
-  likeButton.attributes["data-post-id"] = post.id;
-  if (post.reactions.count > 0) {
-    likeButton.innerHTML = `${post.reactions.symbol}`;
-  }
- 
-  reactions.appendChild(likeButton);
+
   const likeCount = document.createElement("span");
   likeCount.classList.add("text-dark");
-  if (post.reactions.count > 0) {
-      likeCount.textContent = `${post.reactions.count}`;
+  if (post._count.reactions > 0) {
+    post.reactions
+      likeCount.innerHTML = `${post._count.reactions} <button class="btn btn-light border-0" style="cursor: pointer;"><i id="heart" class="bi bi-heart"></i></button>`;
   } else {
-      likeCount.textContent = `0`;
+      likeCount.innerHTML = `0 <button class="btn btn-light border-0" style="cursor: pointer;"><i id="heart" class="bi bi-heart"></i></button>`;
   }
   reactions.appendChild(likeCount);
+
+  const commentSection = document.createElement("div");
+  commentSection.classList.add("col", "border-top", "border-2", "px-3");
+  cardBody.appendChild(commentSection);
+
+  const commentForm = document.createElement("form");
+  commentForm.classList.add( "p-2", "row");
+  commentSection.appendChild(commentForm);
+
+  const commentInput = document.createElement("input");
+  commentInput.classList.add("col",  "form-control", "rounded-pill", "border-0", "p-2","px-3", "m-2");
+  commentInput.placeholder = "leave a comment";
+  commentForm.appendChild(commentInput);
+
+const submitComment = document.createElement("button");
+submitComment.classList.add("col","col-2", "btn", "btn-success", "border-0", "rounded-pill", "p-2", "px-3", "m-2");
+submitComment.innerHTML = `<i class="bi bi-chat"></i>`;
+commentForm.appendChild(submitComment);
+
+//for each comment
+post.comments.forEach((comment) => {
+  const commentCard = document.createElement("div");
+  commentCard.classList.add("row", "bg-light", "m-2", "p-2", "border-top", "border-2");
+  commentSection.appendChild(commentCard);
+
+  const commentRow = document.createElement("div");
+  commentRow.classList.add("row");
+  commentCard.appendChild(commentRow);
+
+  const commentCol = document.createElement("div");
+  commentCol.classList.add("col", "d-flex", "align-items-center");
+
+  const commentImg = document.createElement("img");
+  commentImg.classList.add("profile-thumbnail", "img-thumbnail", "rounded-circle", "p-0", "object-fit-cover");
+  commentImg.style.width = "36px";
+  commentImg.style.aspectRatio = "1/1";
+  commentImg.src = comment.author.avatar;
+  commentImg.alt = `${comment.author.name}`;
+  commentCol.appendChild(commentImg);
+
+  const commentName = document.createElement("h5");
+  commentName.classList.add("card-title", "h5", "ps-2", "pt-2");
+  commentName.textContent = comment.author.name;
+  commentCol.appendChild(commentName);
+
+  commentRow.appendChild(commentCol);
+
+  const commentBody = document.createElement("p");
+  commentBody.classList.add("card-text", "p-0", "ps-5");
+  commentBody.textContent = comment.body;
+  commentCard.appendChild(commentBody);
+
+  const commentDate = document.createElement("i");
+  commentDate.classList.add("text-dark", "pt-1", "ps-3");
+  commentDate.textContent = `${timeAgo(comment.created)}`;
+  commentCol.appendChild(commentDate);
+  });
+
   return card;
 }

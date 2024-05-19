@@ -95,4 +95,5 @@ export async function displayProfile(userName) {
 export async function displayProfilePosts() {
   const posts = await fetchPosts();
   renderProfilePosts(posts);
+  console.log(posts);
 }

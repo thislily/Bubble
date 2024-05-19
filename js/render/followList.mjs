@@ -30,7 +30,7 @@ export async function displayFollowList() {
     const name = queryParams.get("name");
 
     const profileData = await fetchProfile(name);
-    console.log(profileData.followers);
+    
     if (profileData) {
         renderFollowList(profileData);
     } else {

@@ -7,8 +7,6 @@ export function setProfileLinks() {
     const queryParams = new URLSearchParams(window.location.search);
     const userName = queryParams.get('name');
 
-    console.log(followersLink);
-
     if (followersLink) {
         followersLink.href = `/profile/followers/index.html?name=${userName}`;
     }
