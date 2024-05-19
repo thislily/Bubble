@@ -168,7 +168,7 @@ export function postTemplate(post) {
 
   const row3 = document.createElement("div");
   row3.classList.add("row", "px-3");
-  cardBodyLink.appendChild(row3);
+  cardBody.appendChild(row3);
 
 
 
@@ -192,9 +192,9 @@ export function postTemplate(post) {
   likeCount.classList.add("text-dark");
   if (post._count.reactions > 0) {
     post.reactions
-      likeCount.innerHTML = `${post._count.reactions} <button class="btn btn-light border-0" style="cursor: pointer;"><i id="heart" class="bi bi-heart"></i></button>`;
+      likeCount.innerHTML = `${post._count.reactions} <button class="heart btn btn-light border-0" style="cursor: pointer;"><i class="bi bi-heart"></i></button>`;
   } else {
-      likeCount.innerHTML = `0 <button class="btn btn-light border-0" style="cursor: pointer;"><i id="heart" class="bi bi-heart"></i></button>`;
+      likeCount.innerHTML = `0 <button class="heart btn btn-light border-0" style="cursor: pointer;"><i class="bi bi-heart"></i></button>`;
   }
   reactions.appendChild(likeCount);
 
