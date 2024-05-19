@@ -159,17 +159,43 @@ export function postTemplate(post) {
   p.textContent = post.body;
   col3.appendChild(p);
 
+  const row3 = document.createElement("div");
+  row3.classList.add("row", "px-3");
+  cardBody.appendChild(row3);
+
+
+
   //the post date is set to the post created date, if the post has been updated, the post date is set to the post updated date
   const i = document.createElement("i");
-  i.classList.add("text-dark", "text-end", "d-block", "pe-4", "pb-3");
+  i.classList.add("text-dark", "col", "d-flex", "justify-content-start", "align-items-center", "ps-4", "pb-3");
   if (post.created === post.updated) {
-    i.textContent = `posted: ${timeAgo(post.created)}`;
+    i.textContent = `${timeAgo(post.created)}`;
   } else {
-    i.textContent = `posted: ${timeAgo(
+    i.textContent = `${timeAgo(
       post.created
-    )},   updated: ${timeAgo(post.updated)}`;
+    )}, updated: ${timeAgo(post.updated)}`;
   }
-  col3.appendChild(i);
+  row3.appendChild(i);
 
+  const reactions = document.createElement("div");
+  reactions.classList.add("col", "d-flex", "justify-content-end", "align-items-center", "pe-4", "pb-3");
+  row3.appendChild(reactions);
+  const likeButton = document.createElement("button");
+  likeButton.classList.add("btn", "btn-light", "border-0");
+  likeButton.style.cursor = "pointer";
+  likeButton.attributes["data-post-id"] = post.id;
+  if (post.reactions.count > 0) {
+    likeButton.innerHTML = `${post.reactions.symbol}`;
+  }
+ 
+  reactions.appendChild(likeButton);
+  const likeCount = document.createElement("span");
+  likeCount.classList.add("text-dark");
+  if (post.reactions.count > 0) {
+      likeCount.textContent = `${post.reactions.count}`;
+  } else {
+      likeCount.textContent = `0`;
+  }
+  reactions.appendChild(likeCount);
   return card;
 }

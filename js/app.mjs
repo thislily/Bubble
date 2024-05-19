@@ -4,11 +4,12 @@ import { handleUpdatePostForm, updatePostForm } from "./handlers/update-post.mjs
 import { editProfileForm, handleEditProfileForm } from "./handlers/edit-profile-form.mjs";
 import { handleLoginForm,loginForm } from "./handlers/login-form.mjs";
 import { handleRegForm, regForm } from "./handlers/reg-form.mjs";
-import { displayPost, renderPost } from "./render/post.mjs";
+import { displayPost } from "./render/post.mjs";
 import { displayProfile, displayProfilePosts } from "./render/profile.mjs";
 import { handleRemovePostButton } from "./handlers/removePostButton.mjs";
 import { displayFeed } from "./render/feed.mjs";
 import { setNavLinks } from "./handlers/setNavLinks.mjs";
+import { handleFilterPostsSelector, filterPosts } from "./render/feed.mjs";
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -23,6 +24,8 @@ document.addEventListener("DOMContentLoaded", function () {
         handleCreatePostForm();
     } else if (updatePostForm) {
         handleUpdatePostForm();
+    } else if (filterPosts) {
+        handleFilterPostsSelector();
     }
 
     //check if the current page is the profile page or a post page
@@ -40,8 +43,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     if (window.location.pathname === "/feed/index.html") {
-        console.log("displaying feed");
         displayFeed();
+        handleFilterPostsSelector();
     }
 
     setNavLinks();

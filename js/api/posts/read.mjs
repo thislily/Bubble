@@ -1,4 +1,4 @@
-import { POSTS_URL, headers } from "../auth/constants.mjs";
+import { POSTS_URL,PROFILE_URL, headers } from "../auth/constants.mjs";
 
 // fetch a post by id from the api
 export async function fetchPostById() {
@@ -25,15 +25,21 @@ export async function fetchPostById() {
     return postData;
 }
 
-// fetch all posts from the api
-export async function fetchAllPosts() {
-    const token = localStorage.getItem("token");
+// Function to fetch all posts or posts from following based on the filter
+export async function fetchAllPosts(filterValue) {
 
+
+    let url = POSTS_URL + "/?_author=true&_reactions=true&_comments=true";
+    if (filterValue === "2") {
+        url = POSTS_URL + `/following/?_author=true&_reactions=true&_comments=true`; // Use the following-specific endpoint
+    }
+
+    const token = localStorage.getItem("token");
     if (!token) {
         throw new Error("Authorization token not found.");
     }
 
-    const response = await fetch(POSTS_URL + "/?_author=true&_reactions=true&_comments=true", {
+    const response = await fetch(url, {
         method: "GET",
         headers: headers()
     });
@@ -41,7 +47,5 @@ export async function fetchAllPosts() {
     if (!response.ok) {
         throw new Error("Failed to fetch posts: " + response.statusText);
     }
-
-    const postData = await response.json();
-    return postData;
+    return response.json();
 }

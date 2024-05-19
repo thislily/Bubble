@@ -6,7 +6,7 @@ export async function fetchProfile() {
         const queryParams = new URLSearchParams(window.location.search);
         const userName = queryParams.get('name');
 
-        const getProfile = PROFILE_URL + "/" + userName;
+        const getProfile = PROFILE_URL + "/" + userName + "?_posts=true&_followers=true&_following=true";
 
         const token = localStorage.getItem("token");
 
@@ -25,6 +25,18 @@ export async function fetchProfile() {
         }
 
         const profileData = await response.json();
+        console.log(profileData);
+
+        const user = {
+            name: profileData.name,
+            email: profileData.email,
+            avatar: profileData.avatar,
+            banner: profileData.banner,
+            followers: profileData.followers,
+            following: profileData.following,
+            posts: profileData.posts
+        }
+        localStorage.setItem("profile", JSON.stringify(user));
         return profileData;
     } catch (error) {
         throw new Error("Error fetching profile: " + error.message);
