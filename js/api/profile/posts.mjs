@@ -13,7 +13,7 @@ export async function fetchPosts() {
             throw new Error("Authorization token not found.");
         }
 
-        console.log(getPosts);
+
         const response = await fetch(getPosts, {
             method: "GET",
             headers: headers()

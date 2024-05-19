@@ -83,8 +83,13 @@ export function renderProfilePosts(posts) {
 }
 
 export async function displayProfile(userName) {
-  const profile = await fetchProfile();
-  renderProfile(profile);
+  try {
+    const profile = await fetchProfile(userName);
+    renderProfile(profile);
+  } catch (error) {
+    console.error(error.message);
+    throw new Error(error.message);
+  }
 }
 
 export async function displayProfilePosts() {

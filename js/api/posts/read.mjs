@@ -21,17 +21,16 @@ export async function fetchPostById() {
     }
 
     const postData = await response.json();
-    console.log(postData);
     return postData;
 }
 
-// Function to fetch all posts or posts from following based on the filter
+// fetch all posts or posts from following based on the filter
 export async function fetchAllPosts(filterValue) {
 
-
+//choose the correct endpoint based on the filter value
     let url = POSTS_URL + "/?_author=true&_reactions=true&_comments=true";
     if (filterValue === "2") {
-        url = POSTS_URL + `/following/?_author=true&_reactions=true&_comments=true`; // Use the following-specific endpoint
+        url = POSTS_URL + `/following/?_author=true&_reactions=true&_comments=true`;
     }
 
     const token = localStorage.getItem("token");

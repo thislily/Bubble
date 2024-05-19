@@ -4,7 +4,7 @@ import { headers } from "../auth/constants.mjs";
 
 //login user with the profile data
 export async function loginUser(profile) {
-    const response = await fetch(LOGIN_URL , {
+    const response = await fetch(LOGIN_URL, {
         method: "POST",
         body: JSON.stringify(profile),
         headers: {
@@ -13,7 +13,6 @@ export async function loginUser(profile) {
     });
 
     let userData = await response.json();
-    console.log(userData);
 
     //if the user is logged in, save the token and profile data
     if (userData) {
@@ -23,9 +22,6 @@ export async function loginUser(profile) {
             email: userData.email,
             avatar: userData.avatar,
             banner: userData.banner,
-            followers: userData.followers,
-            following: userData.following,
-            posts: userData.posts
         }
         localStorage.setItem("profile", JSON.stringify(user));
 

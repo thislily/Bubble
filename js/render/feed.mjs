@@ -1,22 +1,26 @@
 import { fetchAllPosts } from "../api/posts/read.mjs";
+import { addInfoToCreatePostForm } from "./postFormUser.mjs";
 import { postTemplate } from "./templates/postTemplate.mjs";
 
+
+// display the feed based on the selected filter
 export async function displayFeed() {
 
     const feed = document.getElementById("feed");
-    const filterValue = document.getElementById("filter-posts").value; // Get the selected filter option
+    let filterValue = document.getElementById("filter-posts").value; // get the selected filter option
+
 
     let posts;
     try {
-        posts = await fetchAllPosts(filterValue); // Fetch posts based on filter
+        posts = await fetchAllPosts(filterValue); // fetch posts based on the selected filter
     } catch (error) {
         console.error("Failed to fetch posts:", error);
-        return; // Exit the function if there is a fetching error
+        return; // exit the function if there is a fetching error
     }
 
     let filteredPosts = posts;
     if (filterValue === "1") {
-        // Filter out posts that contain 'test' or 'example'
+        // filter out posts that contain 'test' or 'example'
         filteredPosts = posts.filter(post =>
             (!post.title || !post.body ||
              (!post.title.toLowerCase().includes("test") && !post.title.toLowerCase().includes("example") &&
@@ -31,21 +35,23 @@ export async function displayFeed() {
             feed.appendChild(noFriendsYet);
             return;
         }
-    }
-     else if (filterValue === "3") {
-        // For now assuming filter 3 is "Show me something new" meaning posts from non-followed users
-        const following = new Set(/* Assuming you have a list or set of user IDs the logged-in user follows */);
+    } else if (filterValue === "3") {
+        //show only posts from users the logged-in user is not following
+        const following = new Set();// get the names of users the logged-in user is following
+            
         filteredPosts = posts.filter(post => post.author.name && !following.has(post.author.name));
     }
 
-    feed.innerHTML = ''; // Clear existing posts
 
-    // Append filtered posts to the feed
+    feed.innerHTML = ''; // clear existing posts
+
+    // append filtered posts to the feed
     filteredPosts.forEach(post => {
         feed.appendChild(postTemplate(post));
     });
 
     console.log("Posts filtered and displayed:", filteredPosts);
+    addInfoToCreatePostForm(); // add the logged-in user's name to the create post form
 }
 
 

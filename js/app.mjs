@@ -10,6 +10,8 @@ import { handleRemovePostButton } from "./handlers/removePostButton.mjs";
 import { displayFeed } from "./render/feed.mjs";
 import { setNavLinks } from "./handlers/setNavLinks.mjs";
 import { handleFilterPostsSelector, filterPosts } from "./render/feed.mjs";
+import { setSearchInput, searchPostsInput } from "./handlers/search-input.mjs";
+import { searchPosts } from "./render/search.mjs";
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -26,6 +28,9 @@ document.addEventListener("DOMContentLoaded", function () {
         handleUpdatePostForm();
     } else if (filterPosts) {
         handleFilterPostsSelector();
+    } else if (searchPostsInput) {
+        setSearchInput();
+        searchPosts();
     }
 
     //check if the current page is the profile page or a post page
@@ -52,32 +57,24 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
-// ********************* register user 
-// ********************* login user (automatically if registering) 
+// Required features
 
-// ********************* view user profile 
-// ********************* update user profile 
+// The following user stories are required for a passing submission:
 
-// ********************* create a post 
-// ********************* can view created post by id 
-// ********************* update a post by post id 
-//delete a post by post id 
+//************************** User with @noroff.no or @stud.noroff.no email can register profile
+//************************** Registered user can login
+//************************** User can view a post content feed
+//************************** User can filter the post content feed
+// User can search the post content feed
+//************************** User can view a post content item by ID
+//************************** User can create a post content item
+//************************** User can update a post content item
+//************************** User can delete a post content item
+// Additional features
 
-//view all posts
-//view a single post by post id 
-//view all posts by a user by user id
-//view all posts by a user by username
+// The following user stories are optional:
 
-//create a comment for a post by post id
-//view all comments for a post by post id
-
-//react to a post by post id
-//view all reactions for a post by post id
-
-//view followers for a user by user id
-//view following for a user by user id
-
-//follow a user by user id
-//unfollow a user by user id
-
-
+// User can create a comment on a post
+//************************** User can edit profile media
+// User can follow/unfollow a profile
+// User can react to a post content item
