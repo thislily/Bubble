@@ -31,7 +31,6 @@ export async function fetchProfile() {
         // update the profile data in local storage to include the user's posts, followers, and following
         let user = {};
         if (userName === profile.name) {
-            console.log("profile name matches user name");
             user = {
                 name: profileData.name,
                 email: profileData.email,
@@ -45,8 +44,6 @@ export async function fetchProfile() {
 
         }
 
-        console.log("profileData: ", profileData);
-        console.log("user: ", user);
         return profileData;
     } catch (error) {
         throw new Error("Error fetching profile: " + error.message);

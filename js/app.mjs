@@ -12,6 +12,8 @@ import { setNavLinks } from "./handlers/setNavLinks.mjs";
 import { handleFilterPostsSelector, filterPosts } from "./render/feed.mjs";
 import { setSearchInput, searchPostsInput } from "./handlers/search-input.mjs";
 import { searchPosts } from "./render/search.mjs";
+import { setProfileLinks } from "./handlers/setProfileLinks.mjs";
+import { displayFollowList } from "./render/followList.mjs";
 
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -36,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
     //check if the current page is the profile page or a post page
     if (window.location.pathname.includes("/profile/")) {
         displayProfile();
+        setProfileLinks();
     }
 
     if (window.location.pathname === "/profile/index.html"){
@@ -50,6 +53,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (window.location.pathname === "/feed/index.html") {
         displayFeed();
         handleFilterPostsSelector();
+    }
+
+    if (window.location.pathname.includes("/followers/") || window.location.pathname.includes("/following/")) {
+        displayFollowList();
     }
 
     setNavLinks();

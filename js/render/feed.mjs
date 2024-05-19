@@ -50,11 +50,8 @@ export async function displayFeed() {
         feed.appendChild(postTemplate(post));
     });
 
-    console.log("Posts filtered and displayed:", filteredPosts);
     addInfoToCreatePostForm(); // add the logged-in user's name to the create post form
 }
-
-
 
 export const filterPosts = document.getElementById("filter-posts");
 

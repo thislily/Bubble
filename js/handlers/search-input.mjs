@@ -15,7 +15,7 @@ export function handleSearchInput() {
     // Set a new timeout to search after 2000 milliseconds (2 seconds)
     searchTimeout = setTimeout(() => {
         searchPosts(); // Call the search function after the delay
-    }, 1500); // Delay of 1500 milliseconds
+    }, 1000); // Delay of 1500 milliseconds
 }
 
 // Add an event listener to the search input element
