@@ -8,23 +8,28 @@ import { loginUser } from "./login.mjs";
  */
 
 export async function registerUser(profile) {
-  const response = await fetch(
-    "https://api.noroff.dev/api/v1/social/auth/register",
-    {
+  try {
+    const response = await fetch(REGISTER_URL, {
       method: "POST",
       body: JSON.stringify(profile),
       headers: {
         "Content-Type": "application/json",
       },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to register user: " + response.statusText);
     }
-  );
 
-  let userData = await response.json();
+    const userData = await response.json();
 
-  // if the user is registered, log them in
-  if (userData) {
-    loginUser(profile);
-  } else {
-    throw new Error("Failed to register user: " + response.statusText);
+    // if the user is registered, log them in
+    if (userData) {
+      loginUser(profile);
+    } else {
+      throw new Error("Failed to register user: " + response.statusText);
+    }
+  } catch (error) {
+    console.error(error);
   }
 }

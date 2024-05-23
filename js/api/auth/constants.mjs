@@ -5,7 +5,11 @@ export const REGISTER_URL = `${API_URL}/social/auth/register`; // Register URL
 export const POSTS_URL = `${SOCIAL_URL}/posts`; // Posts URL
 export const PROFILE_URL = `${SOCIAL_URL}/profiles`; // Profile URL
 
-// Function to get the headers
+/**
+ *  function to get the headers with the token
+ * @returns the headers with the token
+ */
+
 export function headers() {
   const token = localStorage.getItem("token");
 
