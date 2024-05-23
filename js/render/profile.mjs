@@ -1,9 +1,14 @@
 import { fetchPosts } from "../api/profile/posts.mjs";
 import { fetchProfile } from "../api/profile/read.mjs";
 import { handleReactionButton } from "../handlers/reactions.mjs";
-import { displayPost } from "./post.mjs";
 import { postTemplate } from "./templates/postTemplate.mjs";
 
+/**
+ * render the user profile
+ * @param {Object} userName - the user data
+ * @returns {Object} - the user profile
+ * @throws {Error} - the error
+ */
 //render the user profile
 export function renderProfile(userName) {
   const bannerImg = document.querySelector("#banner-img");
@@ -15,12 +20,11 @@ export function renderProfile(userName) {
   const followingCount = document.querySelector("#following-count");
   const postsCount = document.querySelector("#posts-count");
   const editProfileLink = document.querySelector("#edit-profile-link");
- const createPostCard = document.querySelector("#create-post-card");
+  const createPostCard = document.querySelector("#create-post-card");
 
- const editProfileButton = document.querySelector("#edit-profile-button");
+  const editProfileButton = document.querySelector("#edit-profile-button");
 
-
- const queryParams = new URLSearchParams(window.location.search);
+  const queryParams = new URLSearchParams(window.location.search);
   const name = queryParams.get("name");
   const user = JSON.parse(localStorage.getItem("profile"));
   const loggedInUser = user.name;
@@ -88,8 +92,7 @@ export async function displayProfile(userName) {
     const profile = await fetchProfile(userName);
     renderProfile(profile);
   } catch (error) {
-    console.error(error.message);
-    throw new Error(error.message);
+    console.error(error);
   }
 }
 

@@ -1,4 +1,7 @@
-//set nav links to correct url
+/**
+ * sets the navigation links to the correct url.
+ */
+
 export function setNavLinks() {
   const profileLink = document.getElementById("profile-link");
   const feedLink = document.getElementById("feed-link");

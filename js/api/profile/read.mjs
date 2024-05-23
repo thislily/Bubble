@@ -1,6 +1,10 @@
 import { SOCIAL_URL, headers, PROFILE_URL } from "../auth/constants.mjs";
 
-// fetch profile data from the API
+/**
+ * fetch user posts from the api using the user name
+ * @returns {Object} - the user posts data
+ */
+
 export async function fetchProfile() {
     try {
         // get the user name from the query string
@@ -46,6 +50,6 @@ export async function fetchProfile() {
 
         return profileData;
     } catch (error) {
-        throw new Error("Error fetching profile: " + error.message);
+        console.error(error);
     }
 }

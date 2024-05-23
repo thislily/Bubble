@@ -2,7 +2,12 @@
 import { LOGIN_URL } from "../auth/constants.mjs";
 import { headers } from "../auth/constants.mjs";
 
-//login user with the profile data
+
+/**
+ * login user with the profile data
+ * @param {Object} profile - the user profile data
+ */
+
 export async function loginUser(profile) {
     const response = await fetch(LOGIN_URL, {
         method: "POST",

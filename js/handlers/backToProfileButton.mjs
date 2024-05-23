@@ -1,5 +1,8 @@
-// add a back to profile link
-export function backToProfileButton(post) {
+/**
+ * Adds a back to profile link to the post page
+ */
+
+export function backToProfileButton() {
   const queryParams = new URLSearchParams(window.location.search);
   const name = queryParams.get("name");
   const profile = localStorage.getItem("profile");

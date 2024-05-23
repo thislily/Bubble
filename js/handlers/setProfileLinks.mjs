@@ -1,4 +1,6 @@
-//set links in profile to correct url
+/**
+ * set links in profile to correct url
+ */
 
 export function setProfileLinks() {
     const followersLink = document.getElementById("followers-link");

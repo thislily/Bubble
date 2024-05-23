@@ -1,4 +1,7 @@
-//assign info to create post form img and name
+
+/**
+ * assign info to create post form img and name
+ */
 
 export function addInfoToCreatePostForm() {
     const user = JSON.parse(localStorage.getItem("profile"));

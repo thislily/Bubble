@@ -1,8 +1,12 @@
 //render a post
 import { timeAgo } from "./timeAgo.mjs";
 
-//function that returns a post template. the template includes the user's name, avatar, post image, post title, post body, post date.
-//the template also includes a follow button if the post is not the user's own post, and an edit button if the post is the user's own post.
+/**
+ * creates an anchor element with the post data which inclues the users name, avatar, post image, post title, post body, post date, follow or edit button, reactions, comments, and comment form.
+ * @param {Object} post - the post data
+ * @returns {Object} - the post template
+ */
+
 export function postTemplate(post) {
   const user = localStorage.getItem("profile");
   const profile = JSON.parse(user);
@@ -21,14 +25,11 @@ export function postTemplate(post) {
     "card-w-image"
   );
 
-
-//the card body is a link to the post page
+  //the card body is a link to the post page
   const cardBody = document.createElement("div");
   const cardBodyLink = document.createElement("a");
-  cardBodyLink.classList.add("text-decoration-none", "text-black" );
+  cardBodyLink.classList.add("text-decoration-none", "text-black");
   cardBodyLink.style.cursor = "pointer";
-
-
 
   if (window.location.pathname.includes("/post/")) {
     cardBodyLink.href = "";
@@ -48,10 +49,17 @@ export function postTemplate(post) {
   row.classList.add("row", "p-3");
   cardBodyLink.appendChild(row);
 
-
   //the name & avatar are links to the user's profile page
   const col = document.createElement("a");
-  col.classList.add("col", "col-auto", "pe-0", "d-flex", "text-decoration-none", "text-black", "flex-row");
+  col.classList.add(
+    "col",
+    "col-auto",
+    "pe-0",
+    "d-flex",
+    "text-decoration-none",
+    "text-black",
+    "flex-row"
+  );
   if (author) {
     col.href = `/profile/index.html?name=${author.name}`;
   } else {
@@ -170,31 +178,44 @@ export function postTemplate(post) {
   row3.classList.add("row", "px-3");
   cardBody.appendChild(row3);
 
-
-
   //the post date is set to the post created date, if the post has been updated, the post date is set to the post updated date
   const i = document.createElement("i");
-  i.classList.add("text-dark", "col", "d-flex", "justify-content-start", "align-items-center", "ps-4", "pb-3");
+  i.classList.add(
+    "text-dark",
+    "col",
+    "d-flex",
+    "justify-content-start",
+    "align-items-center",
+    "ps-4",
+    "pb-3"
+  );
   if (post.created === post.updated) {
     i.textContent = `${timeAgo(post.created)}`;
   } else {
-    i.textContent = `${timeAgo(
-      post.created
-    )}, updated: ${timeAgo(post.updated)}`;
+    i.textContent = `${timeAgo(post.created)}, updated: ${timeAgo(
+      post.updated
+    )}`;
   }
   row3.appendChild(i);
 
   const reactions = document.createElement("div");
-  reactions.classList.add("col", "d-flex", "justify-content-end", "align-items-center", "pe-4", "pb-3");
+  reactions.classList.add(
+    "col",
+    "d-flex",
+    "justify-content-end",
+    "align-items-center",
+    "pe-4",
+    "pb-3"
+  );
   row3.appendChild(reactions);
 
   const likeCount = document.createElement("span");
   likeCount.classList.add("text-dark");
   if (post._count.reactions > 0) {
-    post.reactions
-      likeCount.innerHTML = `${post._count.reactions} <button class="heart btn btn-light border-0" style="cursor: pointer;"><i class="bi bi-heart"></i></button>`;
+    post.reactions;
+    likeCount.innerHTML = `${post._count.reactions} <button class="heart btn btn-light border-0" style="cursor: pointer;"><i class="bi bi-heart"></i></button>`;
   } else {
-      likeCount.innerHTML = `0 <button class="heart btn btn-light border-0" style="cursor: pointer;"><i class="bi bi-heart"></i></button>`;
+    likeCount.innerHTML = `0 <button class="heart btn btn-light border-0" style="cursor: pointer;"><i class="bi bi-heart"></i></button>`;
   }
   reactions.appendChild(likeCount);
 
@@ -203,56 +224,87 @@ export function postTemplate(post) {
   cardBody.appendChild(commentSection);
 
   const commentForm = document.createElement("form");
-  commentForm.classList.add( "p-2", "row");
+  commentForm.classList.add("p-2", "row");
   commentSection.appendChild(commentForm);
 
   const commentInput = document.createElement("input");
-  commentInput.classList.add("col",  "form-control", "rounded-pill", "border-0", "p-2","px-3", "m-2");
+  commentInput.classList.add(
+    "col",
+    "form-control",
+    "rounded-pill",
+    "border-0",
+    "p-2",
+    "px-3",
+    "m-2"
+  );
   commentInput.placeholder = "leave a comment";
   commentForm.appendChild(commentInput);
 
-const submitComment = document.createElement("button");
-submitComment.classList.add("col","col-2", "btn", "btn-success", "border-0", "rounded-pill", "p-2", "px-3", "m-2");
-submitComment.innerHTML = `<i class="bi bi-chat"></i>`;
-commentForm.appendChild(submitComment);
+  const submitComment = document.createElement("button");
+  submitComment.classList.add(
+    "col",
+    "col-2",
+    "btn",
+    "btn-success",
+    "border-0",
+    "rounded-pill",
+    "p-2",
+    "px-3",
+    "m-2"
+  );
+  submitComment.innerHTML = `<i class="bi bi-chat"></i>`;
+  commentForm.appendChild(submitComment);
 
-//for each comment
-post.comments.forEach((comment) => {
-  const commentCard = document.createElement("div");
-  commentCard.classList.add("row", "bg-light", "m-2", "p-2", "border-top", "border-2");
-  commentSection.appendChild(commentCard);
+  //for each comment
+  post.comments.forEach((comment) => {
+    const commentCard = document.createElement("div");
+    commentCard.classList.add(
+      "row",
+      "bg-light",
+      "m-2",
+      "p-2",
+      "border-top",
+      "border-2"
+    );
+    commentSection.appendChild(commentCard);
 
-  const commentRow = document.createElement("div");
-  commentRow.classList.add("row");
-  commentCard.appendChild(commentRow);
+    const commentRow = document.createElement("div");
+    commentRow.classList.add("row");
+    commentCard.appendChild(commentRow);
 
-  const commentCol = document.createElement("div");
-  commentCol.classList.add("col", "d-flex", "align-items-center");
+    const commentCol = document.createElement("div");
+    commentCol.classList.add("col", "d-flex", "align-items-center");
 
-  const commentImg = document.createElement("img");
-  commentImg.classList.add("profile-thumbnail", "img-thumbnail", "rounded-circle", "p-0", "object-fit-cover");
-  commentImg.style.width = "36px";
-  commentImg.style.aspectRatio = "1/1";
-  commentImg.src = comment.author.avatar;
-  commentImg.alt = `${comment.author.name}`;
-  commentCol.appendChild(commentImg);
+    const commentImg = document.createElement("img");
+    commentImg.classList.add(
+      "profile-thumbnail",
+      "img-thumbnail",
+      "rounded-circle",
+      "p-0",
+      "object-fit-cover"
+    );
+    commentImg.style.width = "36px";
+    commentImg.style.aspectRatio = "1/1";
+    commentImg.src = comment.author.avatar;
+    commentImg.alt = `${comment.author.name}`;
+    commentCol.appendChild(commentImg);
 
-  const commentName = document.createElement("h5");
-  commentName.classList.add("card-title", "h5", "ps-2", "pt-2");
-  commentName.textContent = comment.author.name;
-  commentCol.appendChild(commentName);
+    const commentName = document.createElement("h5");
+    commentName.classList.add("card-title", "h5", "ps-2", "pt-2");
+    commentName.textContent = comment.author.name;
+    commentCol.appendChild(commentName);
 
-  commentRow.appendChild(commentCol);
+    commentRow.appendChild(commentCol);
 
-  const commentBody = document.createElement("p");
-  commentBody.classList.add("card-text", "p-0", "ps-5");
-  commentBody.textContent = comment.body;
-  commentCard.appendChild(commentBody);
+    const commentBody = document.createElement("p");
+    commentBody.classList.add("card-text", "p-0", "ps-5");
+    commentBody.textContent = comment.body;
+    commentCard.appendChild(commentBody);
 
-  const commentDate = document.createElement("i");
-  commentDate.classList.add("text-dark", "pt-1", "ps-3");
-  commentDate.textContent = `${timeAgo(comment.created)}`;
-  commentCol.appendChild(commentDate);
+    const commentDate = document.createElement("i");
+    commentDate.classList.add("text-dark", "pt-1", "ps-3");
+    commentDate.textContent = `${timeAgo(comment.created)}`;
+    commentCol.appendChild(commentDate);
   });
 
   return card;

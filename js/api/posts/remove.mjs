@@ -1,7 +1,12 @@
 
 import { headers, POSTS_URL } from "../auth/constants.mjs";
 
-//remove a post by id
+/**
+ * remove a post by id
+ * @param {Object} post - the post data
+ * @returns {Object} - the post data
+ */
+
 export async function removePost(post) {
     const queryParams = new URLSearchParams(window.location.search);
     const postId = queryParams.get('id');

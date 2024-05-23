@@ -1,4 +1,9 @@
-//template for users name card to be displayed when viewing followers or following list
+
+/**
+ * creates a user card with the user's name and avatar
+ * @param {Object} user - user object
+ * @returns {HTMLAnchorElement} - the user card
+ */
 
 export function nameCardTemplate (user){
     const card = document.createElement("a");

@@ -1,11 +1,14 @@
-//handle edit profile form
-
 import { editProfile } from "../api/profile/update.mjs";
-import { backToProfileButton } from "./backToProfileButton.mjs";
+
+/**
+ * handle the edit profile form submission
+ * @param {Object} profile - the user profile data
+ * @returns {Object} - the user profile data
+ *
+ */
 
 export const editProfileForm = document.getElementById("edit-profile-form");
 
-// handle the edit profile form submission
 export function handleEditProfileForm() {
   editProfileForm.addEventListener("submit", (event) => {
     event.preventDefault();

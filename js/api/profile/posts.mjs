@@ -1,6 +1,10 @@
 import { PROFILE_URL, headers } from "../auth/constants.mjs";
 
-//fetch user posts from the api using the user name
+/**
+ * fetch user posts from the api using the user name
+ * @returns {Object} - the user posts data
+ */
+
 export async function fetchPosts() {    
     try {
         const queryParams = new URLSearchParams(window.location.search);
@@ -24,6 +28,6 @@ export async function fetchPosts() {
         const postData = await response.json();
         return postData;
     } catch (error) {
-        throw new Error("Error fetching posts: " + error.message)   ;
+        console.error(error);
     }
 }
